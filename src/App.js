@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import SnippetSelector from './SnippetSelector';
 
 const App = () => {
 
@@ -12,7 +13,7 @@ const App = () => {
   const [userText, setUserText] = useState('');
   const [gameState, setGameState] = useState(initialGameState);
   const [hasError, setErrors] = useState(false);
-  const [filmNames, setFilmNames] = useState([]);
+  const [films, setFilms] = useState([]);
   const updateUserText = event => {
     setUserText(event.target.value);
 
@@ -24,8 +25,9 @@ const App = () => {
       });
     }
   };
-  const chooseSnippet = filmName => {
-    setSnippet(filmName.title);
+  const chooseSnippet = selectedSnippet => {
+    console.log('hello', selectedSnippet);
+    setSnippet(selectedSnippet);
     setGameState({ ...gameState, startTime: new Date().getTime() });
   };
 
@@ -33,7 +35,7 @@ const App = () => {
     const response = await fetch("https://ghibliapi.herokuapp.com/films?limit=3");
     response
       .json()
-      .then(response => setFilmNames(response))
+      .then(response => setFilms(response))
       .catch(err => setErrors(err));
   };
 
@@ -56,7 +58,8 @@ const App = () => {
       <h4>{gameState.victory ? `Done! Woot! Time: ${gameState.endTime}ms` : null}</h4>
       <input value={userText} onChange={updateUserText} />
       <hr />
-      {filmNames.map(filmName => <button onClick={() => chooseSnippet(filmName)}>{filmName.title}</button>)}
+      <SnippetSelector chooseSnippet={chooseSnippet} films={films}/>
+      <>{hasError ? 'An error has occurred': null}</>
     </div>
   )
 }
