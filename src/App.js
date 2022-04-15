@@ -26,7 +26,6 @@ const App = () => {
     }
   };
   const chooseSnippet = selectedSnippet => {
-    console.log('hello', selectedSnippet);
     setSnippet(selectedSnippet);
     setGameState({ ...gameState, startTime: new Date().getTime() });
   };
