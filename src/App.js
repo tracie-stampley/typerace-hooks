@@ -53,9 +53,9 @@ const App = () => {
       <h2>Type Race</h2>
       <hr />
       <h3>Snippet</h3>
-      <div>{snippet}</div>
-      <h4>{gameState.victory ? `Done! Woot! Time: ${gameState.endTime}ms` : null}</h4>
-      <input value={userText} onChange={updateUserText} />
+      <div data-cy="selected-snippet">{snippet}</div>
+      {gameState.victory ? <h4>Done! Woot! Time: {gameState.endTime}ms</h4> : undefined}
+      <input value={userText} onChange={updateUserText} data-cy="typing-input" />
       <hr />
       <SnippetSelector chooseSnippet={chooseSnippet} films={films}/>
       <>{hasError ? 'An error has occurred': null}</>
